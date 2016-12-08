@@ -1,5 +1,15 @@
 'use strict'
 
+const firstOfEntityRole = function(message, entity, role) {
+  role = role || 'generic';
+
+  const slots = message.slots
+  const entityValues = message.slots[entity]
+  const valsForRole = entityValues ? entityValues.values_by_role[role] : null
+
+  return valsForRole ? valsForRole[0] : null
+}
+
 exports.handle = function handle(client) {
   const sayHello = client.createStep({
     satisfied() {
@@ -7,11 +17,11 @@ exports.handle = function handle(client) {
     },
 
     prompt() {
-      client.addResponse('welcome')
-      client.addResponse('provide/documentation', {
+      client.addResponse('app:response:name:welcome')
+      client.addResponse('app:response:name:provide/documentation', {
         documentation_link: 'http://docs.init.ai',
       })
-      client.addResponse('provide/instructions')
+      client.addResponse('app:response:name:provide/instructions')
       client.updateConversationState({
         helloSent: true
       })
@@ -25,12 +35,12 @@ exports.handle = function handle(client) {
     },
 
     prompt() {
-      client.addResponse('apology/untrained')
+     client.addResponse('app:response:name:apology/untrained')
      client.done()
     }
   })
 
-  const handleGreeting = client.createStep({
+  /*const handleGreeting = client.createStep({
     satisfied() {
       return false
     },
@@ -50,16 +60,27 @@ exports.handle = function handle(client) {
       client.addTextResponse('See you later!')
       client.done()
     }
-  })
+  })*/
 
   const collectCity = client.createStep({
 	  satisfied() {
 		return Boolean(client.getConversationState().weatherCity)
 	  },
 
+	  extractInfo() {
+		const city = firstOfEntityRole(client.getMessagePart(), 'city')
+
+		if (city) {
+		  client.updateConversationState({
+			weatherCity: city,
+		  })
+
+		  console.log('User wants the weather in:', city.value)
+		}
+	  },
+
 	  prompt() {
-		// Need to prompt user for city    
-		console.log('Need to ask user for city')
+		client.addResponse('app:response:name:prompt/weather_city')
 		client.done()
 	  },
 	})
@@ -83,7 +104,7 @@ exports.handle = function handle(client) {
 		getWeather: [collectCity, provideWeather],
 	  }
 	})
-  dadasda
+  /*
   client.runFlow({
     classifications: {
       goodbye: 'goodbye',
@@ -96,5 +117,5 @@ exports.handle = function handle(client) {
       onboarding: [sayHello],
       end: [untrained]
     }
-  })
+  })*/
 }
