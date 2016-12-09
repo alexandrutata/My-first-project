@@ -1,6 +1,11 @@
 'use strict'
 
 const getCurrentWeather = require('./lib/getCurrentWeather')
+const getMessageTemplate = require('./lib/getCurrentWeather')
+const getQP = require('./lib/getCurrentWeather')
+const getCustomerDetails = require('./lib/getCurrentWeather')
+const getIsRegistered = require('./lib/getCurrentWeather')
+const register = require('./lib/getCurrentWeather')
 
 const firstOfEntityRole = function(message, entity, role) {
   role = role || 'generic';
@@ -103,14 +108,13 @@ exports.handle = function handle(client) {
 		client.done()
 	  }*/
 	  prompt(callback) {
-		getCurrentWeather(client.getConversationState().weatherCity.value, resultBody => {
-		  /*if (!resultBody || resultBody.cod !== 200) {
-			console.log('Error getting weather.')
-			callback()
+		getIsRegistered(client.getConversationState().weatherCity.value, resultBody => {
+		  if (!resultBody) {
+			//callback()
 			return
 		  }
 
-		  const weatherDescription = (
+		  /*const weatherDescription = (
 			resultBody.weather.length > 0 ?
 			resultBody.weather[0].description :
 			null
@@ -122,13 +126,41 @@ exports.handle = function handle(client) {
 			city: resultBody.name,
 		  }*/
 		  
-		  const weatherDescription = resultBody.Body
+		  /*const weatherDescription = resultBody.Body
 		  const weatherData = {
 			temperature: resultBody.Date,
 			condition: weatherDescription,
 			city: client.getConversationState().weatherCity.value,
-		  }
+		  }*/
+		  /*
+		  const weatherDescription = resultBody.QueryPointsResult.Wallets[0].Points
+		  const weatherData = {
+			temperature: 1,
+			condition: weatherDescription,
+			city: 'Sibiu',
+		  }*/
+		  
+		  /*const weatherDescription = 'Mr. ' + resultBody.GetCustomerProfileResult.CustomerGeneralInfo.FirstName + ' ' + resultBody.GetCustomerProfileResult.CustomerGeneralInfo.LastName
+		  const weatherData = {
+			temperature: 1,
+			condition: weatherDescription,
+			city: 'Sibiu',
+		  }*/
+		  /*
+		  const weatherDescription = 'Is registered ' + resultBody.IsCustomerRegisteredResult.IsCustomerRegistered
+		  const weatherData = {
+			temperature: 1,
+			condition: weatherDescription,
+			city: 'Sibiu',
+		  }*/
 
+		  const weatherDescription = 'Register ' + resultBody
+		  const weatherData = {
+			temperature: 1,
+			condition: weatherDescription,
+			city: 'Sibiu',
+		  }
+		  
 		  console.log('sending real weather:', weatherData)
 		  client.addResponse('app:response:name:provide_weather/current', weatherData)
 		  client.done()
