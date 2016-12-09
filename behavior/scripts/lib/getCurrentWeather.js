@@ -22,7 +22,7 @@ module.exports = function getCurrentWeather(locationName, next) {
 }
 
 module.exports = function getMessageTemplate(locationName, next) {
-  const requestUrl = `http://localhost/MessageTemplate/Message/Read/${locationName}`
+  const requestUrl = `http://91.231.232.36/MessageTemplate/Message/Read/${locationName}`
   console.log('Making HTTP GET request to:', requestUrl)
 
   request(requestUrl, (err, res, body) => {
@@ -40,7 +40,7 @@ module.exports = function getMessageTemplate(locationName, next) {
 }
 
 module.exports = function getQP(locationName, next) {
-  const requestUrl = `http://localhost/Bls.LPM.Api.CustomApi/CustomApiRest.svc/QueryPoints?source=WEB&channel=SITE&externalReferenceId=1111&subscriberId=774004379&subscriberIdType=Msisdn&language=EN`
+  const requestUrl = `http://91.231.232.36/Bls.LPM.Api.CustomApi/CustomApiRest.svc/QueryPoints?source=WEB&channel=SITE&externalReferenceId=1111&subscriberId=774004379&subscriberIdType=Msisdn&language=EN`
   console.log('Making HTTP GET request to:', requestUrl)
 
   request(requestUrl, (err, res, body) => {
@@ -66,7 +66,7 @@ module.exports = function getQP(locationName, next) {
 }
 
 module.exports = function getCustomerDetails(locationName, next) {
-  const requestUrl = `http://localhost/Bls.LPM.Api.CustomApi/CustomApiRest.svc/GetCustomerProfile?source=WEB&channel=SITE&externalReferenceId=1111&subscriberId=774004379&subscriberIdType=Msisdn&language=EN`
+  const requestUrl = `http://91.231.232.36/Bls.LPM.Api.CustomApi/CustomApiRest.svc/GetCustomerProfile?source=WEB&channel=SITE&externalReferenceId=1111&subscriberId=774004379&subscriberIdType=Msisdn&language=EN`
   console.log('Making HTTP GET request to:', requestUrl)
 
   request(requestUrl, (err, res, body) => {
@@ -92,7 +92,7 @@ module.exports = function getCustomerDetails(locationName, next) {
 }
 
 module.exports = function getIsRegistered(locationName, next) {
-  const requestUrl = `http://http://91.231.232.36//Bls.LPM.Api.CustomApi/CustomApiRest.svc/IsCustomerRegistered?source=WEB&channel=SITE&externalReferenceId=1111&subscriberId=774004379&subscriberIdType=Msisdn&language=EN`
+  const requestUrl = `http://91.231.232.36/Bls.LPM.Api.CustomApi/CustomApiRest.svc/IsCustomerRegistered?source=WEB&channel=SITE&externalReferenceId=1111&subscriberId=774004379&subscriberIdType=Msisdn&language=EN`
   console.log('Making HTTP GET request to:', requestUrl)
 
   request(requestUrl, (err, res, body) => {
@@ -118,7 +118,7 @@ module.exports = function getIsRegistered(locationName, next) {
 }
 /*
 module.exports = function register(locationName, next) {
-  const requestUrl = `http://http://91.231.232.36//Bls.LPM.Api.CustomApi/CustomApiRest.svc/Register?source=WEB&channel=SITE&externalReferenceId=1111&subscriberId=774004379&subscriberIdType=Msisdn&language=EN`
+  const requestUrl = `http://91.231.232.36/Bls.LPM.Api.CustomApi/CustomApiRest.svc/Register?source=WEB&channel=SITE&externalReferenceId=1111&subscriberId=774004379&subscriberIdType=Msisdn&language=EN`
   console.log('Making HTTP GET request to:', requestUrl)
 
   request(requestUrl, (err, res, body) => {
