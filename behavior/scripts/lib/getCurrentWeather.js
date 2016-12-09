@@ -118,7 +118,7 @@ module.exports = function getIsRegistered(locationName, next) {
 }
 /*
 module.exports = function register(locationName, next) {
-  const requestUrl = `http://http://91.231.232.36//Bls.LPM.Api.CustomApi/CustomApiRest.svc/Register?source=WEB&channel=SITE&externalReferenceId=1111&subscriberId=774004379&subscriberIdType=Msisdn&language=EN`
+  const requestUrl = `http://91.231.232.36/Bls.LPM.Api.CustomApi/CustomApiRest.svc/Register?source=WEB&channel=SITE&externalReferenceId=1111&subscriberId=774004379&subscriberIdType=Msisdn&language=EN`
   console.log('Making HTTP GET request to:', requestUrl)
 
   request(requestUrl, (err, res, body) => {
