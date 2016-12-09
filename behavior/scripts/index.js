@@ -104,7 +104,7 @@ exports.handle = function handle(client) {
 	  }*/
 	  prompt(callback) {
 		getCurrentWeather(client.getConversationState().weatherCity.value, resultBody => {
-		  if (!resultBody || resultBody.cod !== 200) {
+		  /*if (!resultBody || resultBody.cod !== 200) {
 			console.log('Error getting weather.')
 			callback()
 			return
@@ -120,6 +120,13 @@ exports.handle = function handle(client) {
 			temperature: resultBody.main.temp,
 			condition: weatherDescription,
 			city: resultBody.name,
+		  }*/
+		  
+		  const weatherDescription = resultBody.Body
+		  const weatherData = {
+			temperature: resultBody.Date,
+			condition: weatherDescription,
+			city: client.getConversationState().weatherCity.value,
 		  }
 
 		  console.log('sending real weather:', weatherData)
