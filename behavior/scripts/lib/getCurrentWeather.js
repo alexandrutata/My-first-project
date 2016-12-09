@@ -49,7 +49,15 @@ module.exports = function getQP(locationName, next) {
     }
 
     if (body) {
-      const parsedResult = JSON.parse(body)
+      var parsedResult = JSON.parse(body)
+	  
+	  if (!parsedResult || parsedResult.QueryPointsResult.Error == '') {
+		console.log('API ERROR fct: error code: ' + parsedResult.QueryPointsResult.Error.ErrorCode)
+		parsedResult = ''
+	  }
+	  else{
+		  parsedResult = parsedResult.QueryPointsResult.Wallets[0].Points + ' points'
+	  }
       next(parsedResult)
     } else {
       next()
@@ -67,7 +75,15 @@ module.exports = function getCustomerDetails(locationName, next) {
     }
 
     if (body) {
-      const parsedResult = JSON.parse(body)
+      var parsedResult = JSON.parse(body)
+	  
+	  if (!parsedResult || parsedResult.GetCustomerProfileResult.Error == '') {
+		console.log('API ERROR fct: error code: ' + parsedResult.GetCustomerProfileResult.Error.ErrorCode)
+		parsedResult = ''
+	  }
+	  else{
+		  parsedResult = parsedResult.GetCustomerProfileResult.CustomerGeneralInfo.FirstName + ' ' + parsedResult.GetCustomerProfileResult.CustomerGeneralInfo.LastName
+	  }
       next(parsedResult)
     } else {
       next()
@@ -76,7 +92,7 @@ module.exports = function getCustomerDetails(locationName, next) {
 }
 
 module.exports = function getIsRegistered(locationName, next) {
-  const requestUrl = `http://localhost/Bls.LPM.Api.CustomApi/CustomApiRest.svc/IsCustomerRegistered?source=WEB&channel=SITE&externalReferenceId=1111&subscriberId=774004379&subscriberIdType=Msisdn&language=EN`
+  const requestUrl = `http://http://91.231.232.36//Bls.LPM.Api.CustomApi/CustomApiRest.svc/IsCustomerRegistered?source=WEB&channel=SITE&externalReferenceId=1111&subscriberId=774004379&subscriberIdType=Msisdn&language=EN`
   console.log('Making HTTP GET request to:', requestUrl)
 
   request(requestUrl, (err, res, body) => {
@@ -85,10 +101,44 @@ module.exports = function getIsRegistered(locationName, next) {
     }
 
     if (body) {
-      const parsedResult = JSON.parse(body)
+      var parsedResult = JSON.parse(body)
+	  
+	  if (!parsedResult || parsedResult.IsCustomerRegisteredResult.Error == '') {
+		console.log('API ERROR fct: error code: ' + parsedResult.IsCustomerRegisteredResult.Error.ErrorCode)
+		parsedResult = ''
+	  }
+	  else{
+		  parsedResult = parsedResult.IsCustomerRegisteredResult.IsCustomerRegistered
+	  }
       next(parsedResult)
     } else {
       next()
     }
   })
 }
+/*
+module.exports = function register(locationName, next) {
+  const requestUrl = `http://http://91.231.232.36//Bls.LPM.Api.CustomApi/CustomApiRest.svc/Register?source=WEB&channel=SITE&externalReferenceId=1111&subscriberId=774004379&subscriberIdType=Msisdn&language=EN`
+  console.log('Making HTTP GET request to:', requestUrl)
+
+  request(requestUrl, (err, res, body) => {
+    if (err) {
+      throw new Error(err)
+    }
+
+    if (body) {
+      var parsedResult = JSON.parse(body)
+	  
+	  if (!parsedResult || parsedResult.RegisterResult.Error.ErrorCode !== 0) {
+		console.log('API ERROR fct: error code: ' + parsedResult.RegisterResult.Error.ErrorCode)
+		parsedResult = ''
+	  }
+	  else{
+		  parsedResult = 'Success'
+	  }
+      next(parsedResult)
+    } else {
+      next()
+    }
+  })
+}*/
